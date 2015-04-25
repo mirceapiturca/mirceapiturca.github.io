@@ -387,10 +387,12 @@ button.addEventListener('click', start, false);
 
 function start() {
 	
+	console.time('parseTime');
 	var tokens = new Tokenizer(textArea.value),
 		rules = new Parser(tokens);
-		
+	console.timeEnd('parseTime');	
 	console.log('Tokens', tokens);
+	
 	console.log('Rules', rules);
 	
 	var markup = createRulesMarkup(rules);
