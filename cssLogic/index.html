@@ -153,12 +153,10 @@ button {
 	  animation: show .5s;
 }
 
-
 .selector .selector {
 	  outline: 1px solid #673AB7;
 	  animation: show .5s;
 }
-
 
 .declaration .declaration {
 	  outline: 1px solid #EA80FC;
@@ -173,41 +171,21 @@ button {
   font-weight: 500;
 }
 
-.log__type {
-}
-
-
 @keyframes show {
   0% {
     background-color: rgba(0,0,0,0);
   }
-
   50% {
     background-color: #FF80AB;
   }
-  
   100% {
     background-color: rgba(0,0,0,0);
   }
 }
-
-
-
-
-
-
-
-
-
-
 </style>
-
-
 
 </head>
 <body>
-
-
 <textarea name="textarea" rows="10" cols="50">
 
 @keyframes slidein {
@@ -352,15 +330,12 @@ height: 48px;
 <button class="tokenize">Tokenize</button>
 
 <div id="log" class="log">
-<div>View tokens and rules in console</div>
-<div class="info">Type: <span class="log__type"></span></div>
-<div class="info">Value: <span class="log__value"></span></div>
-<div class="info"><span class="log__unit"></span></div>
-<div class="info"><span class="log__dim--type"></span></div>
-
-
-<div class="info"><span class="log__declaration"></span></div>
-
+	<div>View tokens and rules in console</div>
+	<div class="info">Type: <span class="log__type"></span></div>
+	<div class="info">Value: <span class="log__value"></span></div>
+	<div class="info"><span class="log__unit"></span></div>
+	<div class="info"><span class="log__dim--type"></span></div>
+	<div class="info"><span class="log__declaration"></span></div>
 </div>
 
 <div class="toggle">
@@ -423,7 +398,6 @@ function start() {
 	rulesContainer.appendChild(markup);
 }
 start();
-
 
 function createRulesMarkup(rules) {
 
@@ -510,8 +484,6 @@ function createSelector(prelude, name) {
 				type: 'blockEnd',
 			}))
 			
-			console.log(token)
-			
 		//	blockToMarkup(block)
 		//	selector.appendChild(blockToMarkup(token.value));
 			
@@ -534,8 +506,7 @@ function createValue(value) {
 	var valueMarkup = document.createElement('ul'),
 		i = 0,
 		il = value.length,
-		token
-		//	console.log(111,value)
+		token;
 
 	if (value.type == 'block') {
 
@@ -574,7 +545,6 @@ function createDeclaration(declaration) {
 	declarationMarkup.className = 'declaration';
 
 	return declarationMarkup;
-
 }
 
 // UI
@@ -596,7 +566,6 @@ function show(){
 		rulesContainer.classList.remove(this.value)
 	}
 }
-
 
 var logBox = document.querySelector('.log')
 	logType = document.querySelector('.log__type'),
@@ -674,11 +643,8 @@ rulesContainer.addEventListener('mousemove', function(){
 		//	console.log('translate(' + event.clientX +'px, ' + event.clientY +'px' + ')')
 			
 		}
-	
 	)
-	
 }, false)
 
 </script>
-
 </html>
