@@ -153,10 +153,12 @@ button {
 	  animation: show .5s;
 }
 
+
 .selector .selector {
 	  outline: 1px solid #673AB7;
 	  animation: show .5s;
 }
+
 
 .declaration .declaration {
 	  outline: 1px solid #EA80FC;
@@ -171,21 +173,41 @@ button {
   font-weight: 500;
 }
 
+.log__type {
+}
+
+
 @keyframes show {
   0% {
     background-color: rgba(0,0,0,0);
   }
+
   50% {
     background-color: #FF80AB;
   }
+  
   100% {
     background-color: rgba(0,0,0,0);
   }
 }
+
+
+
+
+
+
+
+
+
+
 </style>
+
+
 
 </head>
 <body>
+
+
 <textarea name="textarea" rows="10" cols="50">
 
 @keyframes slidein {
@@ -256,17 +278,6 @@ html,
   will-change: transform;
 }
 
-.canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    content:"";
-    border: 1px solid red;
-
-}
-
 .paper__drawer-menu::after {
 	content: '';
     position: absolute;
@@ -281,13 +292,6 @@ html,
 
 .paper__drawer-content {
 	width: 100%;
-
-}
-
-.paper__drawer-content ul{
-}
-
-.paper__drawer-content{
 
 }
 
@@ -306,7 +310,6 @@ html,
   cursor: pointer;
   will-change: opacity;
   opacity: 0.4;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
   -webkit-backface-visibility: hidden;
 }
 
@@ -330,12 +333,15 @@ height: 48px;
 <button class="tokenize">Tokenize</button>
 
 <div id="log" class="log">
-	<div>View tokens and rules in console</div>
-	<div class="info">Type: <span class="log__type"></span></div>
-	<div class="info">Value: <span class="log__value"></span></div>
-	<div class="info"><span class="log__unit"></span></div>
-	<div class="info"><span class="log__dim--type"></span></div>
-	<div class="info"><span class="log__declaration"></span></div>
+<div>View tokens and rules in console</div>
+<div class="info">Type: <span class="log__type"></span></div>
+<div class="info">Value: <span class="log__value"></span></div>
+<div class="info"><span class="log__unit"></span></div>
+<div class="info"><span class="log__dim--type"></span></div>
+
+
+<div class="info"><span class="log__declaration"></span></div>
+
 </div>
 
 <div class="toggle">
@@ -387,12 +393,10 @@ button.addEventListener('click', start, false);
 
 function start() {
 	
-	console.time('parseTime');
 	var tokens = new Tokenizer(textArea.value),
 		rules = new Parser(tokens);
-	console.timeEnd('parseTime');	
+		
 	console.log('Tokens', tokens);
-	
 	console.log('Rules', rules);
 	
 	var markup = createRulesMarkup(rules);
@@ -400,6 +404,7 @@ function start() {
 	rulesContainer.appendChild(markup);
 }
 start();
+
 
 function createRulesMarkup(rules) {
 
@@ -485,13 +490,16 @@ function createSelector(prelude, name) {
 				codePoints: [mirror[token.associated.value].charCodeAt(0)],
 				type: 'blockEnd',
 			}))
-			
-		//	blockToMarkup(block)
-		//	selector.appendChild(blockToMarkup(token.value));
+
 			
 		} else {
 
-			selectorPart.textContent = String.fromCodePoint.apply(null, token.codePoints);
+			//	XXX fix this .foo:not([fee])
+			try{
+				selectorPart.textContent = String.fromCodePoint.apply(null, token.codePoints);
+			} catch(d){
+				console.log(token)
+			}
 			selectorPart.className = token.type;
 			token.isSelector = true;
 			
@@ -508,7 +516,8 @@ function createValue(value) {
 	var valueMarkup = document.createElement('ul'),
 		i = 0,
 		il = value.length,
-		token;
+		token
+		//	console.log(111,value)
 
 	if (value.type == 'block') {
 
@@ -547,6 +556,7 @@ function createDeclaration(declaration) {
 	declarationMarkup.className = 'declaration';
 
 	return declarationMarkup;
+
 }
 
 // UI
@@ -568,6 +578,7 @@ function show(){
 		rulesContainer.classList.remove(this.value)
 	}
 }
+
 
 var logBox = document.querySelector('.log')
 	logType = document.querySelector('.log__type'),
@@ -645,8 +656,11 @@ rulesContainer.addEventListener('mousemove', function(){
 		//	console.log('translate(' + event.clientX +'px, ' + event.clientY +'px' + ')')
 			
 		}
+	
 	)
+	
 }, false)
 
 </script>
+
 </html>
